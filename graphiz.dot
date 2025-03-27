@@ -1,0 +1,46 @@
+digraph BayesianNetwork {
+    graph [rankdir=TB, splines=true, overlap=false, fontname="Arial", bgcolor="white"];
+    node [shape=box, style=filled, fillcolor=lightblue, fontname="Arial", fontsize=10, margin="0.4,0.1"];
+    RE [label="Recent Deployment\n[Yes/No]"];
+    HE [label="High Error Rate\n[Yes/No]"];
+    SL [label="Slowdown\n[Yes/No]"];
+    LC [label="High Load on our Services\n[Yes/No]"];
+    QQ [label="Dangerous Queue Status\n[Yes/No]"];
+    DB [label="Dangerous Database Status\n[Yes/No]"];
+    FE [label="Failing External Service\n[Yes/No]"];
+    IS [label="Infrastructure Scaling Failure\n[Yes/No]"];
+    UU [label="High User Load\n[Yes/No]"];
+    AL [label="Alerts Triggered\n[Yes/No]"];
+    CR [label="Severity\n[P0/P1/P2]"];
+    PR [label="Post-Incident Response published\n[Yes/No]"];
+    RE [fillcolor=lightyellow];
+    FE [fillcolor=lightyellow];
+    IS [fillcolor=lightyellow];
+    UU [fillcolor=lightyellow];
+    RE -> HE;
+    RE -> SL;
+    UU -> LC;
+    IS -> LC;
+    IS -> SL;
+    LC -> QQ;
+    LC -> DB;
+    DB -> SL;
+    DB -> HE;
+    DB -> AL;
+    FE -> HE;
+    FE -> SL;
+    QQ -> SL;
+    QQ -> AL;
+    HE -> AL;
+    HE -> CR;
+    SL -> AL;
+    SL -> CR;
+    CR -> PR;
+    AL -> PR;
+    { rank=same; IS; UU;  }
+    { rank=same; LC; FE; RE; }
+    { rank=same; DB; QQ; }
+    { rank=same; SL; HE; }
+    { rank=same; AL; CR; }
+    { rank=same; PR; }
+}
